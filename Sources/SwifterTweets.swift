@@ -295,4 +295,21 @@ public extension Swifter {
         self.getJSON(path: path, baseURL: .api, parameters: parameters, success: { json, _ in success?(json) }, failure: failure)
     }
     
+    /**
+     GET    statuses/:id/activity/summary
+     
+     Returns retweet,favorite and reply activities of a given tweet.
+     
+     This method uses a private API endpoint.
+     */
+    public func getActivity(forTweetID id: String, contributorDetails: Bool? = nil, includeEntities: Bool? = nil, includeMyRetweet: Bool? = nil, success: SuccessHandler? = nil, failure: FailureHandler? = nil) {
+        let path = "statuses/\(id)/activity/summary.json"
+        var parameters = Dictionary<String, Any>()
+        parameters["contributor_details"] ??= contributorDetails
+        parameters["include_entities"] ??= includeEntities
+        parameters["include_my_retweet"] ??= includeMyRetweet
+        
+        self.getJSON(path: path, baseURL: .api, parameters: parameters, success: { json, _ in success?(json) }, failure: failure)
+    }
+    
 }
